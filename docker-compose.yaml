@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: ./fe/Dockerfile
+    ports:
+      - "3000:80"  # Expose frontend on port 3000
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./be/Dockerfile
+    ports:
+      - "8081:8080"  # Expose backend on port 8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/user_managementdb
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=user@12345
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user@12345
+    ports:
+      - "3307:3306"  # Expose MySQL database for local access if needed
+    restart: always
