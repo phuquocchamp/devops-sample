@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import UserForm from "../components/UserForm";
 import UserTable from "../components/UserTable";
 import { fetchUsers } from "../services/api";
-import Navbar from "../components/Navbar";
 
 interface User {
   id: number;
@@ -29,7 +28,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      {/* <Navbar /> */}
       <div className="container mt-5">
         <UserForm onUserCreated={loadUsers} />
         <div className="mt-5">
